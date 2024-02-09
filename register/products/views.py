@@ -1,30 +1,16 @@
-# from turtle import home
-# from django.shortcuts import render,redirect
-# from .models import Products
-# from authentication import views
 
-# # Create your views here.
-# def signout(request):
-    
-#     dict_images = {
-#         'value': Products.objects.all()
-#     }
-#     return render(request, 'signout.html', dict_images)
-# def signin(request):
-#     if request.user.is_authenticated:
-#         return redirect('home') 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Products
 from authentication import views
-
-# Constant for the cookie name
-
 from django.shortcuts import render
 from .models import Products
 
 def signout(request):
-    # Get the current value of the 'count' cookie, defaulting to 0 if it doesn't exist
+    """
+    This view function renders the signout page.
+    """
+    # Get the current value of the 'count' cookie,
     count = int(request.COOKIES.get('count', 0))
     
     # Increment the count

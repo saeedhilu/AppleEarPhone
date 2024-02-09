@@ -5,20 +5,34 @@ from django.shortcuts import redirect, render
 import re
 
 def home(request):
+    """
+    Renders the signup page if the user is not authenticated. If the 
+    user is authenticated, it redirects to the signout page.
+    """
     if request.user.is_authenticated:
         return redirect('signout')
     
     return render(request, 'signup.html')
 
 def signup(request):
+    
+    """
+    Handles user registration. Validates the provided username and 
+    passwords, checks for username availability, and creates a new user
+    if all conditions are met.
+    """
+    if request.user.is_authenticated:
+        return redirect(home)
     if request.method == "POST":
         # Assigning the values
         username = request.POST['username']
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
+        
 
         # This is for username exists or not
-# This is for checking password length > 8
+        # This is for checking password length > 8
+        
         if len(pass1) < 8:
             messages.error(request,'Password atleast 8 characters')
             return redirect('signup')
@@ -33,6 +47,7 @@ def signup(request):
 # check username is numbers and letters only
         if not re.match("^[a-zA-Z0-9]+$", username):
             messages.error(request, "Username should contain only letters (a-z, A-Z) or numbers (0-9).")
+            
             return redirect('signup')
 
         # This is for password checking
@@ -51,6 +66,11 @@ def signup(request):
     return render(request, 'signup.html')
 
 def signin(request):
+    """
+    Handles user login. Authenticates the user with the provided 
+    credentials and redirects to the home page upon successful login.
+    Displays an error message if authentication fails.
+    """
     if request.user.is_authenticated:
         return redirect(home)  # Redirect to home page if already logged in
     
@@ -73,6 +93,10 @@ def signin(request):
     return render(request, 'signin.html')
 
 def logout_btn(request):
+    """
+    Logs out the current user and redirects to the signin page. It also
+    deletes a specific cookie named 'count' if it exists.
+    """
     logout(request)
     response = redirect('signin')
     response.delete_cookie('count')

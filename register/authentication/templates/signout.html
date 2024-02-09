@@ -126,7 +126,7 @@
 
 
     {% if user.is_authenticated %}
-    <nav class="navbar navbar-expand-lg navbar-dark" style="z-index: -11;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="z-index: 1;">
         <div class="container">
             <div class="d-flex justify-content-between" style="width: 100vw; align-items: center;height: 60px;">
                 <img src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjQ0IiB2aWV3Qm94PSIwIDAgMTQgNDQiIHdpZHRoPSIxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTMuMDcyOSAxNy42ODI1YTMuNjEgMy42MSAwIDAgMCAtMS43MjQ4IDMuMDM2NSAzLjUxMzIgMy41MTMyIDAgMCAwIDIuMTM3OSAzLjIyMjMgOC4zOTQgOC4zOTQgMCAwIDEgLTEuMDk0OCAyLjI2MThjLS42ODE2Ljk4MTItMS4zOTQzIDEuOTYyMy0yLjQ3ODcgMS45NjIzcy0xLjM2MzMtLjYzLTIuNjEzLS42M2MtMS4yMTg3IDAtMS42NTI1LjY1MDctMi42NDQuNjUwN3MtMS42ODM0LS45MDg5LTIuNDc4Ny0yLjAyNDNhOS43ODQyIDkuNzg0MiAwIDAgMSAtMS42NjI4LTUuMjc3NmMwLTMuMDk4NCAyLjAxNC00Ljc0MDUgMy45OTY5LTQuNzQwNSAxLjA1MzUgMCAxLjkzMTQuNjkxOSAyLjU5MjQuNjkxOS42MyAwIDEuNjExMi0uNzMzMyAyLjgwOTItLjczMzNhMy43NTc5IDMuNzU3OSAwIDAgMSAzLjE2MDQgMS41ODAyem0tMy43Mjg0LTIuODkxOGEzLjU2MTUgMy41NjE1IDAgMCAwIC44NDY5LTIuMjIgMS41MzUzIDEuNTM1MyAwIDAgMCAtLjAzMS0uMzIgMy41Njg2IDMuNTY4NiAwIDAgMCAtMi4zNDQ1IDEuMjA4NCAzLjQ2MjkgMy40NjI5IDAgMCAwIC0uODc3OSAyLjE1ODUgMS40MTkgMS40MTkgMCAwIDAgLjAzMS4yODkyIDEuMTkgMS4xOSAwIDAgMCAuMjE2OS4wMjA3IDMuMDkzNSAzLjA5MzUgMCAwIDAgMi4xNTg2LTEuMTM2OHoiLz48L3N2Zz4=" alt=""
@@ -157,9 +157,9 @@
             {% endfor %}
         </div>
     </div>
-    {% else %}
-        {% include "signin.html" %}
-    {% endif %}
+    {% comment %} {% else %}
+        {% include "signin.html" %} {% endcomment %}
+    {% endif %} 
 
     <!-- Your content goes here -->
 
