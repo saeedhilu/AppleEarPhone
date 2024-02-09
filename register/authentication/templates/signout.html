@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Head Phone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+ background-color: white     ; /* Dark gray background */
+            padding: 10px; /* Adjusted padding for the navbar */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;            
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #fff; /* White color for the toggler icon */
+        }
+
+        .navbar h2,
+        .navbar h4 {
+            color: #fff; /* White text color */
+        }
+
+        .navbar h4 a {
+            color: #fff; /* White color for the Logout link */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .navbar h4 a:hover {
+            color: #dee2e6; /* Lighter color on hover */
+        }
+
+        .premium-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            background-color: #343a40; /* Change the color values */
+            border: 2px solid #45a049; /* Border color */
+            border-radius: 25px; /* Rounded corners */
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .premium-button:hover {
+            border-color: white;
+            background-color: black;
+        }
+
+        
+
+        .premium-image {
+            width: 100%;
+            height: 250px;
+            {% comment %} object-fit: cover; {% endcomment %}
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover{
+            transform: scale(1.02);
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            margin-top:70px;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card-body {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 30px;
+            margin-bottom: 10px;
+            
+        }
+
+        .card-text {
+            font-size: 22px;
+            color: black; /* Adjusted text color */
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Blue color for the "Buy" button */
+            border-color: #007bff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Adjusted color on hover */
+            border-color: #0056b3;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg navbar-dark" style="z-index: -11;">
+        <div class="container">
+            <div class="d-flex justify-content-between" style="width: 100vw; align-items: center;height: 60px;">
+                <img src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjQ0IiB2aWV3Qm94PSIwIDAgMTQgNDQiIHdpZHRoPSIxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTMuMDcyOSAxNy42ODI1YTMuNjEgMy42MSAwIDAgMCAtMS43MjQ4IDMuMDM2NSAzLjUxMzIgMy41MTMyIDAgMCAwIDIuMTM3OSAzLjIyMjMgOC4zOTQgOC4zOTQgMCAwIDEgLTEuMDk0OCAyLjI2MThjLS42ODE2Ljk4MTItMS4zOTQzIDEuOTYyMy0yLjQ3ODcgMS45NjIzcy0xLjM2MzMtLjYzLTIuNjEzLS42M2MtMS4yMTg3IDAtMS42NTI1LjY1MDctMi42NDQuNjUwN3MtMS42ODM0LS45MDg5LTIuNDc4Ny0yLjAyNDNhOS43ODQyIDkuNzg0MiAwIDAgMSAtMS42NjI4LTUuMjc3NmMwLTMuMDk4NCAyLjAxNC00Ljc0MDUgMy45OTY5LTQuNzQwNSAxLjA1MzUgMCAxLjkzMTQuNjkxOSAyLjU5MjQuNjkxOS42MyAwIDEuNjExMi0uNzMzMyAyLjgwOTItLjczMzNhMy43NTc5IDMuNzU3OSAwIDAgMSAzLjE2MDQgMS41ODAyem0tMy43Mjg0LTIuODkxOGEzLjU2MTUgMy41NjE1IDAgMCAwIC44NDY5LTIuMjIgMS41MzUzIDEuNTM1MyAwIDAgMCAtLjAzMS0uMzIgMy41Njg2IDMuNTY4NiAwIDAgMCAtMi4zNDQ1IDEuMjA4NCAzLjQ2MjkgMy40NjI5IDAgMCAwIC0uODc3OSAyLjE1ODUgMS40MTkgMS40MTkgMCAwIDAgLjAzMS4yODkyIDEuMTkgMS4xOSAwIDAgMCAuMjE2OS4wMjA3IDMuMDkzNSAzLjA5MzUgMCAwIDAgMi4xNTg2LTEuMTM2OHoiLz48L3N2Zz4=" alt=""
+                    class="nav-logo" style="width: 25px;height: 84px;" >
+                    <h1 style="z-index: -1;">  Count {{ count }}</h1>
+
+                <h4><a href="{% url 'logout' %}" class="premium-button" >Logout</a></h4>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            {% for v in value %}
+            <div class="col-md-4 mb-4">
+                <div class="card" >
+                    <img class="card-img-top premium-image" src="{{v.image.url}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Model :{{v.name}}</h5>
+                        <p class="card-text text-center"> ₹{{v.price}}  </p>
+                        <div class="div " style="margin-left: 37%;">
+                            <a href="#" class="btn " style="background-color: #343a40;color: white;width: 80px;border-radius: 30px;">Buy</a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+        {% include "signin.html" %}
+    {% endif %}
+
+    <!-- Your content goes here -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>
