@@ -122,9 +122,10 @@
                 </div>
                 {% endfor %}
                 <form action="signup" method="POST">
+                    
                     {% csrf_token %}{% comment %} This is csrf token which is used to hidden input field   {% endcomment %}
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Create Username (only letters and numbers)"
+                    <input type="text" id="username" name="username" placeholder="Create Username "
                         required>
                     <label for="pass1">Password</label>
                     <input type="password" id="pass1" name="pass1" placeholder="Create a Password" required>
