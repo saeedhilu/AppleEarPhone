@@ -108,6 +108,8 @@ CACHES = {
         'LOCATION': 'redis://127.0.0.1:6379',
     }
 }
+import sys
+print(sys.path)
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
