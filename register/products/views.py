@@ -22,6 +22,16 @@ def cache_saving():
 
 @never_cache
 def products_page(request):
+    import os
+    import redis
+
+    # Connect to your internal Redis instance using the REDIS_URL environment variable
+    # The REDIS_URL is set to the internal Redis URL e.g. redis://red-343245ndffg023:6379
+    r = redis.from_url(os.environ['REDIS_URL'])
+
+    r.set('key', 'redis-py')
+    r.get('key')
+
     if not request.user.is_authenticated:
             return redirect('signin')
     # Get the current value of the 'count' cookie, defaulting to 0 if it doesn't exist
@@ -40,3 +50,4 @@ def products_page(request):
     # print(request.COOKIES)
     return response
 
+    
