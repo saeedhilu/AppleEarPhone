@@ -22,23 +22,24 @@ def cache_saving():
 from django.shortcuts import redirect
 import os
 import redis
-
 @never_cache
 def products_page(request):
     # Get the REDIS_URL environment variable
     redis_url = os.environ.get('REDIS_URL')
 
     if redis_url:
-        # Connect to Redis using the provided URL
-        r = redis.from_url(redis_url)
+        try:
+            # Connect to Redis using the provided URL
+            r = redis.from_url(redis_url)
 
-        # Perform Redis operations
-        r.set('key', 'redis-py')
-        value = r.get('key')
-        print("Value retrieved from Redis:", value)
-    else:
-        print("REDIS_URL environment variable is not set. Please set it before running the script.")
-        
+            # Perform Redis operations
+            r.set('key', 'redis-py')
+            value = r.get('key')
+            print("Value retrieved from Redis:", value)
+        except Exception as e:
+            print("Error connecting to or using Redis:", e)
+            # Handle the error gracefully, such as logging it or displaying a user-friendly message
+    
     if not request.user.is_authenticated:
         return redirect('signin')
     
@@ -58,4 +59,3 @@ def products_page(request):
     # print(request.COOKIES)
     return response
 
-    
