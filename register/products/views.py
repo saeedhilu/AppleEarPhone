@@ -19,21 +19,29 @@ def cache_saving():
 
     return cache_values
 
+from django.shortcuts import redirect
+import os
+import redis
 
 @never_cache
 def products_page(request):
-    import os
-    import redis
+    # Get the REDIS_URL environment variable
+    redis_url = os.environ.get('REDIS_URL')
 
-    # Connect to your internal Redis instance using the REDIS_URL environment variable
-    # The REDIS_URL is set to the internal Redis URL e.g. redis://red-343245ndffg023:6379
-    r = redis.from_url(os.environ['redis://red-cnfb4l821fec739rh8f0:6379'])
+    if redis_url:
+        # Connect to Redis using the provided URL
+        r = redis.from_url(redis_url)
 
-    r.set('key', 'redis-py')
-    r.get('key')
-
+        # Perform Redis operations
+        r.set('key', 'redis-py')
+        value = r.get('key')
+        print("Value retrieved from Redis:", value)
+    else:
+        print("REDIS_URL environment variable is not set. Please set it before running the script.")
+        
     if not request.user.is_authenticated:
-            return redirect('signin')
+        return redirect('signin')
+    
     # Get the current value of the 'count' cookie, defaulting to 0 if it doesn't exist
     count = int(request.COOKIES.get('count', 0))
     
